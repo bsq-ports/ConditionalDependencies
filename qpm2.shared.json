@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/QuestPackageManager/QPM.Package/refs/heads/main/qpm.shared.schema.json",
+  "config": {
+    "configVersion": "2.0.0",
+    "id": "conditional-dependencies",
+    "version": "0.3.1",
+    "additionalData": {
+      "description": "",
+      "author": "",
+      "license": "",
+      "url": "https://github.com/bsq-ports/ConditionalDependencies"
+    },
+    "workspace": {
+      "scripts": {
+        "build": [
+          "pwsh ./build.ps1"
+        ]
+      },
+      "ndk": "^29.0.0",
+      "outBinaries": [],
+      "toolchainOut": "toolchain.json",
+      "cmake": false
+    },
+    "dependencies": {
+      "scotland2": {
+        "versionRange": "*",
+        "qmod": "required"
+      }
+    },
+    "devDependencies": {},
+    "dependenciesDirectory": "extern",
+    "sharedDirectory": "shared",
+    "compileOptions": {
+      "includePaths": [
+        ""
+      ]
+    }
+  },
+  "restoredDependencies": {
+    "scotland2": {
+      "restoredVersion": "0.1.7",
+      "qpkgChecksum": "ac4538913a8ee28cdf85783599093fac23f6bbc086d3e6b8016ef944f2f14220",
+      "restoredBinaries": [
+        "build/libsl2.so"
+      ],
+      "restoredEnv": {}
+    }
+  },
+  "env": {}
+}

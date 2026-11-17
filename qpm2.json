@@ -1,0 +1,31 @@
+{
+  "configVersion": "2.0.0",
+  "id": "conditional-dependencies",
+  "version": "0.3.1",
+  "additionalData": {
+    "url": "https://github.com/bsq-ports/ConditionalDependencies"
+  },
+  "workspace": {
+    "scripts": {
+      "build": [
+        "pwsh ./build.ps1"
+      ]
+    },
+    "outBinaries": [],
+    "ndk": "^29.0.0",
+    "toolchainOut": "toolchain.json",
+    "cmake": false
+  },
+  "dependencies": {
+    "scotland2": {
+      "versionRange": "*",
+      "qmod": "required"
+    }
+  },
+  "devDependencies": {},
+  "dependenciesDirectory": "extern",
+  "sharedDirectory": "shared",
+  "compileOptions": {
+    "includePaths": [""]
+  }
+}

@@ -51,6 +51,9 @@ ndkpath.txt
 extern/
 *.backup
 qpm.lock.json
+qpm.settings.json
+toolchain.json
+*.qpkg
 build/
 
 *.log

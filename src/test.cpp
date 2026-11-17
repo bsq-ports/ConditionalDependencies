@@ -22,6 +22,6 @@ EXPOSE_STATIC_API(somethingCool, &funcILike)
 EXPOSE_INSTANCE_API(A_get_x, &A::get_x);
 #pragma GCC diagnostic pop
 
-extern "C" void load() {
+CONDDEPS_FUNC void load() {
     // Do nothing
 }

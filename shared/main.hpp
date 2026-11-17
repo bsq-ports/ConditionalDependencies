@@ -58,18 +58,23 @@ namespace CondDeps {
         if (!CondDeps::Internal::cond_fileexists(searchPath.string())) {
             return std::nullopt;
         }
+        const auto symbolName = std::string("__") + std::string(name);
         // Clear dlerror first
         dlerror();
-        auto* handle = dlopen(searchPath.c_str(), RTLD_LOCAL | RTLD_NOW);
+        std::unique_ptr<void, decltype(&dlclose)> handle(
+            dlopen(searchPath.c_str(), RTLD_LOCAL | RTLD_NOW), &dlclose);
         auto* err = dlerror();
-        if (handle == nullptr || err != nullptr) {
+        if (!handle || err != nullptr) {
             return std::nullopt;
         }
-        auto* sym = dlsym(handle, (std::string("__") + name.data()).c_str());
+        auto* sym = dlsym(handle.get(), symbolName.c_str());
         err = dlerror();
         if (sym == nullptr || err != nullptr) {
             return std::nullopt;
         }
+        // The returned raw pointer has no owner: keep its library loaded.
+        // Failed lookups instead release their reference through the guard.
+        handle.release();
         return sym;
     }
 

@@ -24,5 +24,6 @@ $root = "${PSScriptRoot}"
 $build = "${root}/build"
 
 & cmake -G "Ninja" -DCMAKE_BUILD_TYPE="RelWithDebInfo" -S ${root} -B ${build}
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 & cmake --build ${build}
 exit $LastExitCode

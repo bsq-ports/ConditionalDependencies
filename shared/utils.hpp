@@ -12,7 +12,7 @@
 #include <array>
 #include <filesystem>
 #include "logging.hpp"
-#include "scotland2/shared/loader.hpp"
+#include "scotland2/loader.hpp"
 
 namespace CondDeps {
     extern "C" {
@@ -153,7 +153,7 @@ namespace CondDeps {
 
     struct Internal {
         static bool cond_fileexists(std::string_view filename) {
-            return access(filename.data(), W_OK | R_OK) != -1;
+            return access(std::string(filename).c_str(), W_OK | R_OK) != -1;
         }
 
         template<typename... TArgs>
@@ -161,11 +161,14 @@ namespace CondDeps {
         {
         #pragma GCC diagnostic ignored "-Wformat-security"
         #pragma GCC diagnostic push
-            size_t size = snprintf(nullptr, 0, format.data(), args ...) + 1; // Extra space for '\0'
-            if (size <= 0)
+            const std::string formatString(format);
+            const int length = snprintf(nullptr, 0, formatString.c_str(), args ...);
+            if (length < 0)
                 return "";
+            const size_t size = static_cast<size_t>(length) + 1; // Extra space for '\0'
             std::unique_ptr<char[]> buf(new char[size]);
-            snprintf(buf.get(), size, format.data(), args...);
+            if (snprintf(buf.get(), size, formatString.c_str(), args...) != length)
+                return "";
             return std::string(buf.get(), buf.get() + size - 1); // We don't want the '\0' inside
         #pragma GCC diagnostic pop
         }

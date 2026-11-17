@@ -7,11 +7,11 @@ struct A {
 
 // If this does not crash, it performs as expected.
 // See test.cpp to see the definition of the test function.
-extern "C" void load() {
-    auto test = CondDeps::Find<void, int, float>("conditional-dependencies-test", "test");
-    auto cool = CondDeps::Find<void, int, int&>("conditional-dependencies-test", "somethingCool");
-    auto inst = CondDeps::Find<int, A*>("conditional-dependencies-test", "A_get_x");
-    auto unsafeInst = CondDeps::FindUnsafe<int, int*>("conditional-dependencies-test", "A_get_x");
+CONDDEPS_FUNC void load() {
+    auto test = CondDeps::Find<void, int, float>("conditional-dependencies-test-1", "test");
+    auto cool = CondDeps::Find<void, int, int&>("conditional-dependencies-test-1", "somethingCool");
+    auto inst = CondDeps::Find<int, A*>("conditional-dependencies-test-1", "A_get_x");
+    auto unsafeInst = CondDeps::FindUnsafe<int, int*>("conditional-dependencies-test-1", "A_get_x");
     test.value()(3, 4.1f);
     int someInt = 2442;
     cool.value()(42, someInt);
